@@ -1,0 +1,46 @@
+<h1>{{eventId ? 'Update Event' : 'Add Event'}}</h1>
+<form nz-form [formGroup]="formData" (ngSubmit)="submitForm()">
+<!--  <div>-->
+<!--    <label></label>-->
+<!--    <input type="text" formControlName="name">-->
+<!--  </div>-->
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" nzRequired [nzXs]="24">Name</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="This field is required!">
+      <input nz-input formControlName="name">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24">Description</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24">
+      <textarea rows="4" nz-input formControlName="description"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24">Description</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24">
+      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a status" formControlName="status">
+        <nz-option nzLabel="Draft" nzValue="DRAFT"></nz-option>
+        <nz-option nzLabel="Open To Registration" nzValue="OPEN_TO_REGISTRATION"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24">Start Date Time - End Date Time</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24">
+      <nz-range-picker
+        [nzShowTime]="{ nzFormat: 'HH:mm' }"
+        nzFormat="yyyy-MM-dd HH:mm"
+        [(ngModel)]="dateArray"
+        (ngModelChange)="onChange($event)"
+        (nzOnCalendarChange)="onCalendarChange($event)"
+        (nzOnOk)="onOk($event)"
+      ></nz-range-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSm]="{ span: 18, offset: 6 }" [nzXs]="24">
+      <button nz-button nzType="primary">Submit</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

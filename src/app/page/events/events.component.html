@@ -1,0 +1,42 @@
+<h1>Event list</h1>
+<div class="mb-15">
+  <button nz-button nzType="primary" nzSize="large" routerLink="/app/events/add">
+    Add new
+  </button>
+</div>
+<nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+  <input type="text" [(ngModel)]="queryParams.q" nz-input placeholder="input search text" />
+</nz-input-group>
+<ng-template #suffixButton>
+  <button nz-button nzType="primary" (click)="search()" nzSize="large" nzSearch>Search</button>
+</ng-template>
+
+<nz-table #basicTable [nzData]="dataList"
+          [nzFrontPagination]="false">
+  <thead>
+  <tr>
+    <th [nzSortFn]="true" [nzSortPriority]="true" (nzSortOrderChange)="sort($event, 'name')">Event name</th>
+    <th [nzSortFn]="true" [nzSortPriority]="true" (nzSortOrderChange)="sort($event, 'place')">Place</th>
+    <th>Start Date Time</th>
+    <th>End Date Time</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTable.data">
+    <td>{{data.name}}</td>
+    <td>{{data.place}}</td>
+    <td>{{data.startDateTime | date : 'yyyy/MM/dd HH:mm'}}</td>
+    <td>{{data.endDateTime | date}}</td>
+    <td>
+      <a routerLink="/app/events/update/{{data.id}}">Edit</a>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
+<nz-pagination *ngIf="totalElements" [nzPageIndex]="queryParams.page"
+               [nzTotal]="totalElements"
+               [nzPageSize]="queryParams.size"
+               (nzPageIndexChange)="pageChange($event)"
+>
+</nz-pagination>
